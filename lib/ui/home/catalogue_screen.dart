@@ -35,7 +35,7 @@ class CatalogueScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: defaultPadding),
             child: Text(
               "Headphone",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: textColor),
             ),
           ),
           const Categories(),

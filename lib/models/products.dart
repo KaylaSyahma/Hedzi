@@ -21,18 +21,18 @@ class Product {
 List<Product> product = [
   Product(
     id: 1, 
-    image: 'assets/images/headphone_1.png', 
-    title: "product 1", 
-    price: 10000, 
+    image: 'assets/images/Headphone_1.png', 
+    title: "ST89M BT 5.0", 
+    price: 300000, 
     description: descriptionText, 
     size: 12, 
-    color: const Color(0xFFE2BDC2)
+    color: const Color(0xFF8FD3D4)
   ),
    
   Product(
     id: 2, 
     image: 'assets/images/Headphone_2.png', 
-    title: "product 2", 
+    title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
     size: 12, 
@@ -42,31 +42,31 @@ List<Product> product = [
   Product(
     id: 3, 
     image: 'assets/images/Headphone_3.png', 
-    title: "product 3", 
+    title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
     size: 12, 
-    color: const Color(0xFF9FBDE1)
+    color: const Color(0xFFFEDBED)
   ),
   
   Product(
     id: 4, 
-    image: 'assets/images/Headphone_4.png', 
-    title: "product 4", 
+    image: 'assets/images/headphone_4.png', 
+    title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
     size: 12, 
-    color: const Color(0xFFBEACE0)
+    color: const Color(0xFFC9EBFF)
   ),
 
   Product(
     id: 5, 
     image: 'assets/images/Headphone_5.png', 
-    title: "product 5", 
+    title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
     size: 12, 
-    color: const Color(0xFFEE5A4C)
+    color: const Color(0xFF86A1D0)
     ),
   
   Product(
@@ -76,7 +76,7 @@ List<Product> product = [
     price: 10000, 
     description: descriptionText, 
     size: 12, 
-    color: const Color(0xFF5EB157),
+    color: const Color(0xFFBEACE0),
    ),
 ];
 
