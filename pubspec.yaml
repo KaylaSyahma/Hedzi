@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8 # ^ tanda nya udah include versi sebelumnya / biar compatible jika ada update
   flutter_svg: ^2.0.10 # buat library svg flutter
   provider: ^6.1.2 # library untuk management
+  fluttertoast: 8.2.8
+  shared_preferences: ^2.3.2
+  
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,5 @@
 import 'package:e_commers/consts.dart';
-import 'package:e_commers/ui/home/catalogue_screen.dart';
+import 'package:e_commers/ui/auth/login_screen.dart';
 import 'package:e_commers/ui/splash/components/splash_content.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,8 @@ class _BodyState extends State<Body> {
       "image": "assets/images/splash_sound.png"
     },
     {
-      "text": "Feel the beat, live the sound. Hedzi – Your go-to audio game-changer",
+      "text":
+          "Feel the beat, live the sound. Hedzi – Your go-to audio game-changer",
       "image": "assets/images/splash_sound.png"
     }
   ];
@@ -40,7 +41,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          // biar project ga ketutupan sm system hp
+      // biar project ga ketutupan sm system hp
       child: Column(
         children: [
           Expanded(
@@ -69,8 +70,7 @@ class _BodyState extends State<Body> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(splashData.length,
-                      (index) => _dotsIndicator(index: index)))
-                ),
+                      (index) => _dotsIndicator(index: index)))),
           Padding(
             // ini buat ngasih jarak luar button
             padding: const EdgeInsets.all(10.0),
@@ -78,31 +78,24 @@ class _BodyState extends State<Body> {
               // double infinity mainnya titik koordinat, akan membawa ke koordinat 0.0
               width: double.infinity,
               child: ElevatedButton(
-               style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
-               ),
-                onPressed: () {
-                  if (currentPage == splashData.length - 1) {
-                    // kode yang digunakan untuk berpindah antar halaman
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const CatalogueScreen())
-                    );
-                  } else {
-                    _pageController.animateToPage(
-                      currentPage + 1, 
-                      duration: animationDuration, 
-                      curve: Curves.ease
-                      );
-                  }
-                }, 
-                child:  Text(
-                  currentPage == splashData.length - 1 ? "Start" : "Next", 
-                  style: const TextStyle
-                  (color: Colors.white,
-                )
-              )
-              ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                  ),
+                  onPressed: () {
+                    if (currentPage == splashData.length - 1) {
+                      // kode yang digunakan untuk berpindah antar halaman
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    } else {
+                      _pageController.animateToPage(currentPage + 1,
+                          duration: animationDuration, curve: Curves.ease);
+                    }
+                  },
+                  child: Text(
+                      currentPage == splashData.length - 1 ? "Start" : "Next",
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ))),
             ),
           )
         ],
@@ -120,8 +113,7 @@ class _BodyState extends State<Body> {
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: currentPage == index ? secondaryThemeColor : secondaryColor
-          ),
+          color: currentPage == index ? secondaryThemeColor : secondaryColor),
       // ini page if else ceritanya
       width: currentPage == index ? 20 : 10,
       duration: animationDuration,
