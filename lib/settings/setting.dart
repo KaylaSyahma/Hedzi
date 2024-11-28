@@ -10,66 +10,98 @@ class SettingBeneran extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Account & Settings",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          actions: [
-          IconButton(
-            onPressed: (){
-             themeProvider.toggleTheme(!themeProvider.isDarkTheme);
-            }, 
-            icon: Icon(themeProvider.isDarkTheme ? Icons.dark_mode : Icons.light_mode, 
-            color: themeProvider.isDarkTheme ? Colors.amber : Colors.grey,
-            )
-          )
-        ],
-          // backgroundColor: Colors.white,
-          centerTitle: true,
-        ),
-        body: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+    return Padding(
+          padding: const EdgeInsets.all(defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+               Text(
                 "Account",
                 style: TextStyle(
-                    fontSize: 23,
-                    color: Colors.black,
+                    fontSize: 20,
+                    color: themeProvider.isDarkTheme ? Colors.white : textColor,
                     fontWeight: FontWeight.bold),   
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
-              AccountSettings(
-                  icon: Icons.notifications_active_outlined,
-                  text: "Notification Settings"),
-              AccountSettings(
-                  icon: Icons.shopping_cart_outlined, text: "Shopping Address"),
-              AccountSettings(
-                  icon: Icons.payment_rounded, text: "Payment Info"),
-              AccountSettings(
-                  icon: Icons.delete_outline_rounded, text: "Delete Account"),
-              SizedBox(
+              _accountSettings(Icons.settings, "Settings",const Color(0xFFF3F4F4), const Color(0xFF959595), themeProvider),
+              _accountSettings(Icons.notifications_active_outlined, "Notification", const Color(0xFFE4F0F1), const Color(0xFF51ADB6), themeProvider),
+              _accountSettings(Icons.history, "Order History", const Color(0xFFFAF1E3), const Color(0xFFFCCA80), themeProvider),
+              const SizedBox(
                 height: 40,
               ),
-              Text(
-                "App Settings",
+               Text(
+                "General",
                 style: TextStyle(
-                    fontSize: 23,
-                    color: Colors.black,
+                    fontSize: 20,
+                    color: themeProvider.isDarkTheme ? Colors.white : textColor,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 25,),
-              AppSet(text: "Enable Face ID For Log In"),
-              AppSet(text: "Enable Push Notifications"),
-              AppSet(text: "Enable Location Services"),
+              const SizedBox(height: 25,),
+          //     ListTile(
+          //   leading: Icon(
+          //     themeProvider.isDarkTheme ? Icons.dark_mode : Icons.light_mode,
+          //     color: themeProvider.isDarkTheme ? Colors.white : Colors.amber,
+          //   ),
+          //   title: const Text('Dark Mode'),
+          //   trailing: Switch(
+          //     value: themeProvider.isDarkTheme,
+          //     onChanged: (value) {
+          //       themeProvider.toggleTheme(value);
+          //     },
+          //   ),
+          // ),
+              const AppSet(text: "Enable Face ID For Log In"),
+              const AppSet(text: "Enable Push Notifications"),
+              const AppSet(text: "Enable Location Services"),
             ],
           ),
-        ));
+        );
+  }
+
+  Column _accountSettings(final IconData icon,
+  final String text,
+  Color bgColor,
+  Color color,
+  final ThemeProvider themeProvider) {
+    return Column(
+            children: [
+        Row(children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: bgColor, // Warna background
+                borderRadius: BorderRadius.circular(10), // Membuat bentuk lingkaran
+            ),
+            child: Icon(
+              icon,
+              color: color,
+            ),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Text(
+            text,
+            // ini gabisa kenapa?
+            style:  TextStyle(fontSize: 20, color: themeProvider.isDarkTheme ? Colors.white : primaryColor),
+          ),
+          const Spacer(),
+          Icon(
+            Icons.arrow_forward_ios,
+            color: themeProvider.isDarkTheme ? Colors.white : primaryColor,
+          )
+        ]),
+        const SizedBox(
+          height: 10,
+        ),
+        const Divider(
+          color: Color(0xFFE9EDEF),
+          thickness: 1,
+        ),
+      ],  
+            );
   }
 }
 
@@ -89,18 +121,20 @@ class _AppSetState extends State<AppSet> {
 
   @override
   Widget build(BuildContext context) {
+     final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Column(
       children: [
         Row(
           children: [
             Text(
               widget.text,
-              style: TextStyle(fontSize: 20, color: Colors.black),
+              style:  TextStyle(fontSize: 18, color: themeProvider.isDarkTheme ? Colors.white : primaryColor),
             ),
-            Spacer(),
+            const Spacer(),
             Switch(
               value: light,
-              activeColor: Colors.blue,
+              activeColor: primaryColor,
               onChanged: (bool value) {
                 setState(() {
                   light = value;
@@ -109,14 +143,14 @@ class _AppSetState extends State<AppSet> {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         const Divider(
           color: Color(0xFFE9EDEF),
           thickness: 1,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         )
       ],
@@ -124,51 +158,22 @@ class _AppSetState extends State<AppSet> {
   }
 }
 
-class AccountSettings extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final Color color;
-
-  const AccountSettings({
-    super.key,
-    required this.icon,
-    required this.text,
-    this.color = Colors.grey,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(children: [
-          Icon(
-            icon,
-            color: color,
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          Text(
-            text,
-            style: const TextStyle(fontSize: 20, color: Colors.black),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_forward_ios,
-            color: color,
-          )
-        ]),
-        SizedBox(
-          height: 10,
-        ),
-        const Divider(
-          color: Color(0xFFE9EDEF),
-          thickness: 1,
-        ),
-        SizedBox(
-          height: 10,
-        )
-      ],
-    );
-  }
-}
+// appBar: AppBar(
+//           title: const Text(
+//             "Account & Settings",
+//             style: TextStyle(fontWeight: FontWeight.bold),
+//           ),
+//           actions: [
+//           IconButton(
+//             onPressed: (){
+//               // negasi biar false, jadi defaultnya lightmode
+//              themeProvider.toggleTheme(!themeProvider.isDarkTheme);
+//             }, 
+//             icon: Icon(themeProvider.isDarkTheme ? Icons.dark_mode : Icons.light_mode, 
+//             color: themeProvider.isDarkTheme ? Colors.amber : Colors.grey,
+//             )
+//           )
+//         ],
+//           // backgroundColor: Colors.white,
+//           centerTitle: true,
+//         ),

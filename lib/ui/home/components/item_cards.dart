@@ -12,64 +12,72 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(defaultPadding),
-              decoration: BoxDecoration(
-                  color: product.color,
-                  borderRadius: BorderRadius.circular(16)),
-              // untuk mendefinisikan tiap produk
-              child: Stack(
-                children: [
-                  Hero(
-                    tag: "${product.id}",
-                    child: Image.asset(product.image),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(6), // Padding untuk ikon
-                    decoration: BoxDecoration(
-                      color: Colors.white
-                          .withOpacity(0.7), // Latar belakang dengan opasitas
-                      shape: BoxShape.circle,
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+        padding: EdgeInsets.all(7),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(defaultPadding),
+                decoration: BoxDecoration(
+                    color: product.color,
+                    borderRadius: BorderRadius.circular(16)),
+                // untuk mendefinisikan tiap produk
+                child: Stack(
+                  children: [
+                    Hero(
+                      tag: "${product.id}",
+                      child: Image.asset(product.image),
                     ),
-                    child: const Icon(
-                      Icons.favorite_border,
-                      color: Colors.blue,
-                      size: 20,
+                    Container(
+                      padding: const EdgeInsets.all(6), // Padding untuk ikon
+                      decoration: BoxDecoration(
+                        color: Colors.white
+                            .withOpacity(0.7), // Latar belakang dengan opasitas
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.favorite_border,
+                        color: primaryColor,
+                        size: 20,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 5),
-                child: Text(
-                  product.title,
-                  style: const TextStyle(color: textColor),
+        
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 5, left: 12),
+                  child: Text(
+                    product.title,
+                    style: const TextStyle(
+                        color: primaryColor,
+                        fontSize: 12.42,
+                        fontWeight: FontWeight.bold
+                      ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 1.0),
-                child: Text(
-                  "\$ ${product.price}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: textColor),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    "\$ ${product.price}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: textColor),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          //
-        ],
+              ],
+            ),
+            //
+          ],
+        ),
       ),
     );
   }

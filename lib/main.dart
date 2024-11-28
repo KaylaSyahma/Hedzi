@@ -1,19 +1,27 @@
 import 'package:e_commers/consts.dart';
 import 'package:e_commers/settings/settings_screen.dart';
+import 'package:e_commers/state-management/cart_provider.dart';
 import 'package:e_commers/state-management/theme_provider.dart';
+import 'package:e_commers/state-management/wishlist_provider.dart';
 import 'package:e_commers/ui/auth/login_screen.dart';
 import 'package:e_commers/ui/auth/register_screen.dart';
 import 'package:e_commers/ui/home/catalogue_screen.dart';
+import 'package:e_commers/ui/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
+  runApp(
+    MultiProvider(
     // placeholder untuk ThemeProvider yang belum terdefinisi
-    create: (_) => ThemeProvider(),
+    providers: [
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ChangeNotifierProvider(create: (_) => CartProvider()),
+      ChangeNotifierProvider(create: (_) => WishlistProvider())
+    ],
     child: const FloShop(),
-  ));
+    )
+  );
 }
 
 class FloShop extends StatefulWidget {
@@ -31,17 +39,19 @@ class _FloShopState extends State<FloShop> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'FloShop',
-          initialRoute: '/', 
+          initialRoute: '/',
           routes: {
-            '/': (context) => LoginPage(),
+            '/': (context) => SplashScreen(),
             '/login': (context) => LoginPage(),
             '/register': (context) => RegisterScreen(),
             '/catalogue': (context) => CatalogueScreen(),
-            '/settings' : (context) => SettingsScreen(),
+            '/settings': (context) => SettingsScreen(),
             // '/profile' : (context) => ProfileScreen(),
           },
           theme: ThemeData(
-              brightness: themeProvider.isDarkTheme ? Brightness.dark : Brightness.light,
+              brightness: themeProvider.isDarkTheme
+                  ? Brightness.dark
+                  : Brightness.light,
               scaffoldBackgroundColor:
                   themeProvider.isDarkTheme ? Colors.black : Color(0xFFF8F9FA),
               fontFamily: 'Muli',
@@ -55,3 +65,4 @@ class _FloShopState extends State<FloShop> {
     );
   }
 }
+

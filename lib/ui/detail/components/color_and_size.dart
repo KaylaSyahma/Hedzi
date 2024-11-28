@@ -40,7 +40,7 @@ class ColorAndSize extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Size",
+                "Type",
                 style: TextStyle(color: textColor),
               ),
               RichText(
@@ -48,7 +48,7 @@ class ColorAndSize extends StatelessWidget {
                   style: const TextStyle(color: textColor),
                   children: [
                     TextSpan(
-                      text: '${product.size} CM',
+                      text: '${product.size} ',
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge!

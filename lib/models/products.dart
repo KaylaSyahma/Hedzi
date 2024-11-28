@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+// satu-satunya acuan untuk data yang digunakan
 class Product {
-  final String image, title, description;
-  final int price, size, id;
+  final String image, title, size, description;
+  final int price,  id;
   final Color color;
 
   Product({
@@ -22,11 +23,11 @@ List<Product> product = [
   Product(
     id: 1, 
     image: 'assets/images/Headphone_1.png', 
-    title: "ST89M BT 5.0", 
+    title: "G58 RGB Gaming ", 
     price: 300000, 
     description: descriptionText, 
-    size: 12, 
-    color: const Color(0xFF8FD3D4)
+    size: "Wireless", 
+    color: const Color(0xFF71B5B6)
   ),
    
   Product(
@@ -35,7 +36,7 @@ List<Product> product = [
     title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
-    size: 12, 
+    size: "Wireless", 
     color: const Color(0xFFE1D5B8)
   ),
 
@@ -45,7 +46,7 @@ List<Product> product = [
     title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
-    size: 12, 
+    size: "Wireless", 
     color: const Color(0xFFFEDBED)
   ),
   
@@ -55,7 +56,7 @@ List<Product> product = [
     title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
-    size: 12, 
+    size: "Wireless", 
     color: const Color(0xFFC9EBFF)
   ),
 
@@ -65,7 +66,7 @@ List<Product> product = [
     title: "ST89M BT 5.0", 
     price: 10000, 
     description: descriptionText, 
-    size: 12, 
+    size: "Wireless", 
     color: const Color(0xFF86A1D0)
     ),
   
@@ -75,9 +76,9 @@ List<Product> product = [
     title: "product 6", 
     price: 10000, 
     description: descriptionText, 
-    size: 12, 
+    size: "Wireless", 
     color: const Color(0xFFBEACE0),
    ),
 ];
 
-String descriptionText = "lorem Ipsum Dolor Sit Amet";
+String descriptionText = "Modern headphones may include features like noise-canceling technology, Bluetooth connectivity, long battery life, and customizable sound settings to enhance the listening experience. Whether for casual listening, gaming, or professional use, headphones are designed to cater to a wide range of needs, ensuring users can enjoy their favorite content with comfort and clarity.";

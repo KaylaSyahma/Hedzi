@@ -46,15 +46,15 @@ class FavCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 16,),
-                 Text("BEST SELLER", style: TextStyle(color: Color(0xFF5B9EE1)),),
-                 SizedBox(height: 5,),
-                  Text(product.title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,)),
+                  const SizedBox(height: 16,),
+                 const Text("BEST SELLER", style: TextStyle(color: Color(0xFF5B9EE1)),),
+                 const SizedBox(height: 5,),
+                  Text(product.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,)),
                   
                   Row(
                     children: [
-                      Text("\$ 58.7", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                      Spacer(),
+                      const Text("\$ 58.7", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      const Spacer(),
                       colorDot(product.color)
                     ],
                   )

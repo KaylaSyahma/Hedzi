@@ -1,7 +1,6 @@
 import 'package:e_commers/consts.dart';
 import 'package:e_commers/models/products.dart';
-import 'package:e_commers/settings/setting.dart';
-import 'package:e_commers/settings/settings_screen.dart';
+import 'package:e_commers/ui/cart/cart.dart';
 import 'package:e_commers/ui/detail/detail_screen.dart';
 import 'package:e_commers/ui/home/components/bottom_navbar.dart';
 import 'package:e_commers/ui/home/components/categories.dart';
@@ -10,6 +9,7 @@ import 'package:e_commers/ui/home/components/search_bar.dart';
 import 'package:e_commers/ui/profile/profile_screen.dart';
 import 'package:e_commers/ui/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 // INI MAU BIKIN APPBAR
 class CatalogueScreen extends StatefulWidget {
@@ -29,15 +29,20 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
 
   int _selectedIndex = 0;
 
+  // dasar untuk navigasi via navigation bar
   final List<Widget> _widgetOptions = [
-    CatalogueScreen(),
-    FavScreen(),
-    SettingBeneran(),
-    ProfileScreen()
+    const CatalogueScreen(),
+    const WishlistScreen(),
+    const Cartscreen(),
+    // const SettingBeneran(),
+    const ProfileScreen()
   ];
 
+// function untuk aksi pada bottom navbar
   void _onItemTapped(int index) {
     setState(() {
+      // menyatakan bahwa inisial action adalah untk menampilkan objek yang
+      // berada pada index ke 0
       _selectedIndex = index;
     });
   }
@@ -45,96 +50,225 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   // false biar tombol kembalinya (arrow) ga ada
-      //   automaticallyImplyLeading: false,
-      //   backgroundColor: Colors.white,
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: [
-      //       const Text(
-      //         "Home",
-      //         style: TextStyle(
-      //             fontWeight: FontWeight.bold,
-      //             fontSize: 30,
-      //             color: textColor),
-      //       ),
-      //       IconButton(
-      //         onPressed: () {},
-      //         icon: const Icon(Icons.notifications, size: 30.0, color: secondaryColor,),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-
+      backgroundColor: const Color(0xFFFAFAFA),
+      appBar: _selectedIndex == 0
+    ? PreferredSize(
+  preferredSize: const Size.fromHeight(kToolbarHeight + 20), // Tinggi tambahan
+  child: Container(
+    padding: const EdgeInsets.only(top: 20), // Jarak dari atas
+    child: AppBar(
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Unleash the Perfect\nSound",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 23,
+              color: primaryColor,
+            ),
+          ),
+          const Spacer(),
+          GestureDetector(
+            onTap: () {
+              // Aksi saat avatar diklik
+            },
+            child: const CircleAvatar(
+              radius: 28,
+              backgroundImage: AssetImage('assets/images/profile-bener.png'),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+)
+    : null,
+      
       // TERNARI OPERATOR = 
       body: _selectedIndex == 0
-      ? Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SearchBarApp(),
-          const Padding(
-            padding: EdgeInsets.all(defaultPadding),
-            child: BannerImage(),
-          ),
-          
-          const Categories(),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    ? SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SearchBarApp(),
+            BannerImage(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: 2),
+              child: Categories(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: GridView.builder(
+                shrinkWrap: true, // Tambahkan ini agar GridView menyesuaikan tinggi
+                physics: const NeverScrollableScrollPhysics(), // Nonaktifkan scroll GridView
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: defaultPadding,
                   crossAxisSpacing: defaultPadding,
-                  // lebar item akan menjadi 75% dari tinggi item.
-                  childAspectRatio: 0.75),
-              itemCount: product.length,
-              // itembuilder = pembangun UI.
-              itemBuilder: (context, index) => ItemCard(
-                  // dikasih index karena dia mulai dri 0
+                  childAspectRatio: 0.75,
+                ),
+                itemCount: product.length,
+                itemBuilder: (context, index) => ItemCard(
                   product: product[index],
                   press: () => Navigator.push(
-                      context,
-                      // Kalau mau ngedapetin data list, jangan lupa pake index karena
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DetailScreen(product: product[index])))),
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(product: product[index]),
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ))
-        ],
+          ],
+        ),
       )
-      : _widgetOptions[_selectedIndex], // Tampilkan widget berdasarkan index
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      )
+    : _widgetOptions[_selectedIndex],
+bottomNavigationBar: BottomNavBar(
+  selectedIndex: _selectedIndex,
+  onItemTapped: _onItemTapped,
+),
     );
   }
 
   
 }
 
-class BannerImage extends StatelessWidget {
-  const BannerImage({
-    super.key,
-  });
+class BannerImage extends StatefulWidget {
+  const BannerImage({super.key});
+
+  @override
+  State<BannerImage> createState() => _BannerImageState();
+}
+
+class _BannerImageState extends State<BannerImage> {
+  late final PageController _pageController;
+  int _currentPage = 0;
+  late final Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _currentPage);
+
+    // Auto-scroll setiap 3 detik
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < 2) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){},
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        width: double.infinity,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20), 
-          child: const Image(
-            image: AssetImage('assets/images/banner.png'),
-            fit: BoxFit.contain,
-          )
+    return SizedBox(
+      height: 220,
+      child: PageView(
+        controller: _pageController,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12), // Border radius 12px
+              child: Image.asset(
+                "assets/images/banner1.png",
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12), // Border radius 12px
+              child: Image.asset(
+                "assets/images/banner2.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12), // Border radius 12px
+              child: Image.asset(
+                "assets/images/banner3.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+// class BannerImage extends StatefulWidget {
+//   const BannerImage({
+//     super.key,
+//   });
+
+//   @override
+//   State<BannerImage> createState() => _BannerImageState();
+// }
+// class _BannerImageState extends State<BannerImage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 220,
+//       child: PageView(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.all(defaultPadding),
+//             child: Image.asset(
+//               "assets/images/banner1.png",
+//               fit: BoxFit.cover,
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(defaultPadding),
+//             child: Image.asset(
+//               "assets/images/banner2.png",
+//               fit: BoxFit.cover,
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(defaultPadding),
+//             child: Image.asset(
+//               "assets/images/banner3.png",
+//               fit: BoxFit.cover,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//     // return GestureDetector(
+//     //   onTap: (){},
+//     //   child: Container(
+//     //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+//     //     width: double.infinity,
+//     //     child: ClipRRect(
+//     //       borderRadius: BorderRadius.circular(20), 
+//     //       child: const Image(
+//     //         image: AssetImage('assets/images/banner.png'),
+//     //         fit: BoxFit.contain,
+//     //       )
+//     //       ),
+//     //   ),
+//     // );
+//   }
+// }

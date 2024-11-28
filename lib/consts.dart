@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 // A primary color definition
-const primaryColor = Color(0xFF2476D9);
-const secondaryThemeColor =  Color(0xFFE0134E);
+const primaryColor = Color(0xFF415577);
+const secondaryThemeColor =  Color(0xFFBC637C);
 
 const primaryLightColor = Color(0xFFFFECDF);
 const primaryGradientColor = LinearGradient(
   colors: [
     Color(0xFF2476D9),
-    Color(0xFFE0134E),
+    Color(0xFFBC637C),
     ]);
+
+const iconColor = Color(0xFF5E5E5E);
 
 // A secondary color definition
 const secondaryColor = Color(0xFF979797);

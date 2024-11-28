@@ -1,3 +1,4 @@
+import 'package:e_commers/consts.dart';
 import 'package:flutter/material.dart';
 
 class SplashContent extends StatelessWidget {
@@ -18,17 +19,25 @@ class SplashContent extends StatelessWidget {
         // Text(
         //   'FloShop',
         //   style: TextStyle(
-        //       color: primaryColor, 
+        //       color: primaryColor,
         //       fontSize: getProportionateScreenWidht(36.0)
         //     ),
         // ),
-        Image.asset("assets/images/Logo.png"),
-        const SizedBox(height: 20,),
+        Image.asset("assets/images/iconFix.png"),
+        const SizedBox(
+          height: 20,
+        ),
+
+        Image.asset(image),
         Text(
           text,
           textAlign: TextAlign.center,
-        ),
-        Image.asset(image)
+          style: const TextStyle(
+            color: primaryColor,
+            fontSize: 19.20,
+            fontWeight: FontWeight.w400,
+          ),
+        )
       ],
     );
   }

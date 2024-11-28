@@ -9,6 +9,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context); // harus panggil ini di stating screen
     return const Scaffold(
+      backgroundColor: Colors.white,
       body: Body(),
     );
   }

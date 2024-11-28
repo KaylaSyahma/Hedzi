@@ -24,22 +24,18 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> splashData = [
     {
       "text": "Hey there! Welcome to Hedzi \nTune in, zone out.",
-      "image": "assets/images/splash_sound.png"
+      "image": "assets/images/splash1.png"
     },
     {
-      "text": "Bringing you crisp vibes, anytime, anywhere.",
-      "image": "assets/images/splash_sound.png"
+      "text": "Bringing you crisp vibes, \nanytime, anywhere.",
+      "image": "assets/images/splash2.png"
     },
-    {
-      "text":
-          "Feel the beat, live the sound. Hedzi – Your go-to audio game-changer",
-      "image": "assets/images/splash_sound.png"
-    }
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         body: SafeArea(
       // biar project ga ketutupan sm system hp
       child: Column(
@@ -59,8 +55,9 @@ class _BodyState extends State<Body> {
                       currentPage = value;
                     });
                   },
-                  //item count buat ngasih tau jumlah index yg ada, krn klo gapake ntar jadi unlimited
+                  //item count buat ngasih tau jumlah index yg ada, krn klo gapake ntar jadi unlimited, dan juga krn dia array
                   itemCount: splashData.length,
+                  // jembatan antara data dan UI
                   itemBuilder: (context, index) => SplashContent(
                       text: splashData[index]["text"]!,
                       image: splashData[index]["image"]!),
@@ -70,15 +67,17 @@ class _BodyState extends State<Body> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(splashData.length,
+                  // pertama kalinya pake method extraction dan one line ife cond
                       (index) => _dotsIndicator(index: index)))),
           Padding(
             // ini buat ngasih jarak luar button
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.only(bottom: 30),
             child: SizedBox(
               // double infinity mainnya titik koordinat, akan membawa ke koordinat 0.0
-              width: double.infinity,
+              // width: double.infinity,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 150),
                     backgroundColor: primaryColor,
                   ),
                   onPressed: () {

@@ -17,35 +17,36 @@ class BottomNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(
             Icons.home,
-            color: Colors.black,
+            color: primaryColor,
           ),
           label: "Home"
         ),      
         BottomNavigationBarItem(
           icon: Icon(
             Icons.favorite,
-            color: Colors.black,
+            color: primaryColor,
           )     
           ,
           label: "Favorite"
         ),      
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.settings,
-            color: Colors.black,
-          ),
-          label: "Settings"
-        ),      
+            Icons.shopping_cart,
+            color: primaryColor,
+          )     
+          ,
+          label: "Cart"
+        ),       
         BottomNavigationBarItem(
           icon: Icon(
             Icons.person,
-            color: Colors.black,
+            color: primaryColor,
           ),
           label: "Profile"
         ),      
       ],
       currentIndex: selectedIndex,
-      selectedItemColor: secondaryColor,
+      selectedItemColor: primaryColor,
       onTap: onItemTapped,
     );
   }
